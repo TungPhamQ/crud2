@@ -1,11 +1,9 @@
 <template>
     <div class="header">
-        <thread>
-            <tr>
-                <th v-for="(item, index) in header" :key="index">{{ item }}</th>
+        <tr>
+            <th v-for="(item, index) in header" :key="index">{{ item.name }}</th>
 
-            </tr>
-        </thread>
+        </tr>
     </div>
 </template>
 

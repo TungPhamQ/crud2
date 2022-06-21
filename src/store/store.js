@@ -5,16 +5,13 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
-    posts: [
-        
-    ],
+    posts: [],
     post:{}
 }
 
 //to handle state
 const getters = {
     getPost(){
-
     }
 }
 

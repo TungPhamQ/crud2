@@ -11,7 +11,7 @@
         </label>
 
         <label>Body
-            <input placeholder="" v-model="input.body">
+            <textarea placeholder="" v-model="input.body"></textarea>
             <br>
         </label>
         <button v-if="!this.input.id" @click="addPost">Add new post</button>
@@ -28,7 +28,6 @@ export default {
             input: {
                 userId: '',
                 id: '',
-                // id: Math.floor(Math.random() * 10),
                 title: '',
                 body: '',
             },
@@ -50,7 +49,12 @@ export default {
         },
         updatePost: function () {
             this.$store.dispatch('editPost', this.input);
-
+            this.input = {
+                userId: '',
+                id: '',
+                title: '',
+                body: '',
+            }
         }
     },
     computed: {

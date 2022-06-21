@@ -1,7 +1,7 @@
 <template>
     <div style="width:100%">
         <CrudEdit />
-        <CrudList />
+        <CrudList :header="header" />
     </div>
 </template>
 
@@ -14,6 +14,28 @@ export default {
     name: "CrudApp",
     data() {
         return {
+            header: [
+                {
+                    name: 'UserID',
+                    colspan: 1,
+                },
+                {
+                    name: 'ID',
+                    colspan: 1,
+                },
+                {
+                    name: 'Title',
+                    colspan: 1,
+                },
+                {
+                    name: 'Body',
+                    colspan: 1,
+                },
+                {
+                    name: 'Function',
+                    colspan: 2,
+                },
+            ]
 
         }
     },

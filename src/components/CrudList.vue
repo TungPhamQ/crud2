@@ -1,15 +1,16 @@
 <template>
     <div class="list">
         <table style="width:100%">
-            <thread>
-                <CrudHeader :header="header"></CrudHeader>
-            </thread>
+            <thead>
+                <tr>
+                    <th v-for="(item, index) in header" :key="index" :colspan="item.colspan">{{ item.name }}</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr v-for="post in this.$store.state.posts" :key="post.id">
-                    <td v-for="(item, index) in post" :key="index"> {{ item }} </td>
+                    <td v-for="item in post" :key="item.id"> {{ item }} </td>
                     <td><button @click="editPost(post)">Edit</button></td>
                     <td><button @click="deletePost(post)">Delete</button></td>
-
                 </tr>
             </tbody>
         </table>
@@ -17,22 +18,16 @@
 </template>
 
 <script>
-import CrudHeader from './CrudHeader.vue';
 
 export default {
     name: 'CrudList',
     props: {
+        header: Array
     },
-    components: { CrudHeader },
     data() {
         return {
             post: {},
-            header: [
-                'userId',
-                'id',
-                'title',
-                'body',
-            ]
+
         }
     },
     methods: {
@@ -52,9 +47,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* table,
+table,
 th,
 td {
     border: 1px solid black;
-} */
+}
 </style>
