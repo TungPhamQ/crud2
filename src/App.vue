@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 import CrudApp from './components/CrudApp.vue'
 
 export default {

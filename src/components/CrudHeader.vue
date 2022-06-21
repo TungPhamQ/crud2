@@ -1,10 +1,11 @@
 <template>
     <div class="header">
-        <table style="width:100%">
+        <thread>
             <tr>
                 <th v-for="(item, index) in header" :key="index">{{ item }}</th>
+
             </tr>
-        </table>
+        </thread>
     </div>
 </template>
 
@@ -21,9 +22,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-table,
+/* table,
 th,
 td {
     border: 1px solid black;
-}
+} */
 </style>

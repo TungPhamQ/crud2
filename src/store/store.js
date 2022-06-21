@@ -7,12 +7,15 @@ Vue.use(Vuex)
 const state = {
     posts: [
         
-    ]
+    ],
+    post:{}
 }
 
 //to handle state
 const getters = {
-    
+    getPost(){
+
+    }
 }
 
 //to handle actions
@@ -21,11 +24,37 @@ const actions = {
         axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
             .then(response => {commit('GET_POSTS', response.data)})
     },
+    // deletePost({commit}, post) {
+    //     commit('DELETE_POST', post)
+    // },
+    
+    //  deletePost(id) {
+    //     axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)    
+    //         // eslint-disable-next-line
+    //         .then(response => this.posts = this.posts.filter(post => post.id !== id))
+    //         .catch(err => console.log(err))
+    // },
     deletePost({commit}, post) {
-        commit('DELETE_POST', post)
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`,)
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+        commit('DELETE_POST', post)   
     },
-    addPost({commit}, input){
+    addPost({commit},input){
+        axios.post('https://jsonplaceholder.typicode.com/posts/',{
+           input
+        })
+        .then(response => console.log(response))
         commit('ADD_POST', input)
+    },
+    editPost({commit}, post,input){
+        axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,
+            {
+                input
+            }
+        )
+        .then(response => console.log(response))
+        commit('EDIT_POST', post);
     }
     
 }
@@ -39,8 +68,17 @@ const mutations = {
         state.posts.splice(state.posts.indexOf(post), 1) 
     },
     ADD_POST (state, input) {
-        state.posts.push(input)
+        // state.posts.push(input)
+        state.posts = [...state.posts, input]
     },
+    EDIT_POST (state, post) {
+        state.post = post;
+        console.log(state.post);
+    },
+    // UPDATE_POST (state, post){
+    //     state.post = post;
+    //     console.log(state.post);
+    // }
     
 }
 

@@ -1,13 +1,11 @@
 <template>
-    <div class="table">
+    <div style="width:100%">
         <CrudEdit />
-        <CrudHeader :header="header"></CrudHeader>
         <CrudList />
     </div>
 </template>
 
 <script>
-import CrudHeader from './CrudHeader.vue';
 import CrudList from './CrudList.vue';
 import CrudEdit from './CrudEdit.vue';
 
@@ -16,15 +14,10 @@ export default {
     name: "CrudApp",
     data() {
         return {
-            header: [
-                'userId',
-                'id',
-                'title',
-                'body',
-            ]
+
         }
     },
-    components: { CrudHeader, CrudList, CrudEdit },
+    components: { CrudList, CrudEdit },
     props: {
         posts: Array
     }

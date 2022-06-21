@@ -1,61 +1,72 @@
 <template>
     <div class="edit">
-        <div>
-            <label v-for="(input, index) in inputs" :key="index">
-                {{ input.label }}
-                <input :type="input.type" :placeholder="input.placeholder" v-bind:value="input.value">
-                {{ input.value }}
-                <br>
-            </label>
-            <button @click="$store.dispatch('addPost', postInput)">Add new post</button>
-            {{ postInput }}
+        <label>UserID
+            <input placeholder="" v-model.number="input.userId">
+            <br>
+        </label>
 
-        </div>
+        <label>Title
+            <input placeholder="" v-model="input.title">
+            <br>
+        </label>
+
+        <label>Body
+            <input placeholder="" v-model="input.body">
+            <br>
+        </label>
+        <button v-if="!this.input.id" @click="addPost">Add new post</button>
+        <button v-if="this.input.id" @click="updatePost">Update post</button>
     </div>
 </template>
 
 <script>
-
 export default {
     name: "CrudEdit",
+
     data() {
         return {
-            inputs: [
-                {
-                    label: "UserId",
-                    name: 'userId',
-                    type: Number,
-                    placeholder: 'nhap user Id',
-                    value: ''
-                },
-                {
-                    label: "Title",
-                    name: 'title',
-                    type: String,
-                    placeholder: 'nhap title',
-                    value: ''
-                },
-                {
-                    label: "Body",
-                    name: 'body',
-                    type: String,
-                    placeholder: 'nhap body',
-                    value: ''
-                },
-            ],
-            postInput: [
-                {
-                    userId: this.inputs[0].value,
-                }
-            ]
+            input: {
+                userId: '',
+                id: '',
+                // id: Math.floor(Math.random() * 10),
+                title: '',
+                body: '',
+            },
+            // post: this.$store.state.post
         }
     },
     components: {},
-    props: {
+    methods: {
+        addPost: function () {
+            this.input.id = Math.floor(Math.random() * 10);
+            this.$store.dispatch('addPost', this.input);
 
+            this.input = {
+                userId: '',
+                id: '',
+                title: '',
+                body: '',
+            }
+        },
+        updatePost: function () {
+            this.$store.dispatch('editPost', this.input);
+
+        }
+    },
+    computed: {
+        post() {
+            return this.$store.state.post;
+        }
+    },
+    watch: {
+        post(newPost) {
+            this.input = newPost;
+        }
     }
-
 }
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
