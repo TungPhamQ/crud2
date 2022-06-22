@@ -15,26 +15,24 @@ export default {
     data() {
         return {
             header: [
+
                 {
-                    name: 'UserID',
+                    name: 'id',
                     colspan: 1,
                 },
                 {
-                    name: 'ID',
+                    name: 'userId',
                     colspan: 1,
                 },
                 {
-                    name: 'Title',
+                    name: 'body',
                     colspan: 1,
                 },
                 {
-                    name: 'Body',
+                    name: 'title',
                     colspan: 1,
                 },
-                {
-                    name: 'Function',
-                    colspan: 2,
-                },
+
             ]
 
         }

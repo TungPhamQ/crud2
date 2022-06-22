@@ -37,13 +37,18 @@ const actions = {
         .catch(err => console.log(err))
         commit('DELETE_POST', post)   
     },
-    addPost({commit},input){
-        axios.post('https://jsonplaceholder.typicode.com/posts/',{
-           input
-        })
-        .then(response => console.log(response))
-        commit('ADD_POST', input)
+    async addPost ({commit},input) {
+       try {
+        const res  = await axios.post('https://jsonplaceholder.typicode.com/posts/',{
+            
+         })
+         console.log(res)
+         commit('ADD_POST', input)
+       } catch(err) {
+        console.log(err)
+       }
     },
+
     editPost({commit}, post,input){
         axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,
             {

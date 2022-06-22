@@ -3,12 +3,13 @@
         <table style="width:100%">
             <thead>
                 <tr>
-                    <th v-for="(item, index) in header" :key="index" :colspan="item.colspan">{{ item.name }}</th>
+                    <th v-for="item in header" :key="item.id" :colspan="item.colspan">{{ item.name }} </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="post in $store.state.posts" :key="post.id">
-                    <td class="text-content" v-for="item in post" :key="item.id"> {{ item }} </td>
+                    <td class="text-content" v-for="(item, itemId) in header" :key="itemId"> {{ post[item.name] }}
+                    </td>
                     <td>
                         <b-button @click="editPost(post)" variant="info">Edit</b-button>
                     </td>
@@ -23,6 +24,7 @@
 
 <script>
 
+
 export default {
     name: 'CrudTable',
     props: {
@@ -33,6 +35,9 @@ export default {
             post: {},
         }
     },
+    computed: {
+
+    },
     methods: {
         deletePost: function (post) {
             this.$store.dispatch('deletePost', post)
@@ -40,11 +45,10 @@ export default {
         editPost: function (post) {
             // this.$store.dispatch('editPost', post)
             this.$store.dispatch('editPost', post);
-        }
-    },
+        },
 
+    }
 }
-
 
 </script>
 
