@@ -2,20 +2,16 @@
     <div class="table">
         <table style="width:100%">
             <thead>
-                <tr>
-                    <th v-for="item in header" :key="item.id" :colspan="item.colspan">{{ item.name }} </th>
-                </tr>
+                <HeaderTable :header="header" />
             </thead>
+
             <tbody>
                 <tr v-for="post in $store.state.posts" :key="post.id">
-                    <td class="text-content" v-for="(item, itemId) in header" :key="itemId"> {{ post[item.name] }}
-                    </td>
-                    <td>
-                        <b-button @click="editPost(post)" variant="info">Edit</b-button>
-                    </td>
-                    <td>
-                        <b-button @click="deletePost(post)" variant="danger">X</b-button>
-                    </td>
+                    <ListTable v-for="(item, itemId) in header" :key="itemId" :post="post" :item="item" />
+
+                    <FunctionButton name="Edit" variant="info" @click.native="editPost(post)" />
+                    <FunctionButton name="X" variant="danger" @click.native="deletePost(post)" />
+
                 </tr>
             </tbody>
         </table>
@@ -23,31 +19,42 @@
 </template>
 
 <script>
-
+import HeaderTable from './Table/HeaderTable.vue';
+import ListTable from './Table/ListTable.vue';
+import FunctionButton from './Table/FunctionButton.vue';
 
 export default {
-    name: 'CrudTable',
+    name: "CrudTable",
     props: {
         header: Array
     },
     data() {
         return {
             post: {},
-        }
+            // buttons: [
+            //     {
+            //         name: "Edit1",
+            //         functionOfButton: "editPost(post)",
+            //         variant: "info",
+            //     },
+            //     {
+            //         name: "X",
+            //         functionOfButton: "deletePost(post)",
+            //         variant: "danger",
+            //     }
+            // ],
+        };
     },
-    computed: {
-
-    },
+    computed: {},
     methods: {
         deletePost: function (post) {
-            this.$store.dispatch('deletePost', post)
+            this.$store.dispatch("deletePost", post);
         },
         editPost: function (post) {
-            // this.$store.dispatch('editPost', post)
-            this.$store.dispatch('editPost', post);
+            this.$store.dispatch("editPost", post);
         },
-
-    }
+    },
+    components: { HeaderTable, ListTable, FunctionButton }
 }
 
 </script>
@@ -55,7 +62,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 table,
-th,
 td {
     border: 1px solid black;
     text-align: center;

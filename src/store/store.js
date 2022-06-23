@@ -31,7 +31,7 @@ const actions = {
     async addPost ({commit},input) {
        try {
         const res  = await axios.post('https://jsonplaceholder.typicode.com/posts/',{
-            
+            input
          })
          console.log(res)
          commit('ADD_POST', input)
@@ -41,17 +41,17 @@ const actions = {
        }
     },
 
-    editPost({commit}, post,input){
-        axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,
+    async editPost({commit}, post,input){
+        try{
+        const res = await axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,
             {
                 input
             }
         )
-        .then(response => {
-            console.log(response);
+            console.log(res);
             commit('EDIT_POST', post);
-        })
-        .catch(err => console.log(err))
+        }
+        catch(err) { console.log(err)}
     }
     
 }
@@ -65,7 +65,6 @@ const mutations = {
         state.posts.splice(state.posts.indexOf(post), 1) 
     },
     ADD_POST (state, input) {
-        // state.posts.push(input)
         state.posts = [...state.posts, input]
     },
     EDIT_POST (state, post) {

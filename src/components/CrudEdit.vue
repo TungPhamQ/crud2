@@ -1,5 +1,6 @@
 <template>
     <form class="edit" @submit="onSubmit">
+        <h3>EDITOR</h3>
         <div class="edit-control">
             <label>UserID
                 <input v-model="input.userId" required>
