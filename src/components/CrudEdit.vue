@@ -1,31 +1,34 @@
 <template>
-    <div class="edit">
+    <form class="edit" @submit="onSubmit">
         <div class="edit-control">
             <label>UserID
-                <input placeholder="" v-model.number="input.userId">
+                <input v-model="input.userId" required>
                 <br>
             </label>
         </div>
         <div class="edit-control">
             <label>Title
-                <input placeholder="" v-model="input.title">
+                <input v-model="input.title" required>
                 <br>
             </label>
         </div>
         <div class="edit-control">
             <label>Body
-                <textarea placeholder="" v-model="input.body" @keyup.enter="addPost"></textarea>
+                <textarea v-model="input.body" @keyup.enter="addPost" required></textarea>
                 <br>
             </label>
         </div>
         <div class="btn">
-            <b-button v-if="!this.input.id" @click="addPost" variant="success">Add New Post</b-button>
-            <b-button v-if="this.input.id" @click="updatePost" variant="warning">Update Post</b-button>
+            <b-button type="submit" v-if="!this.input.id" variant="success">Add New Post
+            </b-button>
+            <b-button type="submit" v-if="this.input.id" variant="warning">Update Post</b-button>
         </div>
-    </div>
+    </form>
 </template>
 
 <script>
+
+
 export default {
     name: "CrudEdit",
 
@@ -37,15 +40,21 @@ export default {
                 title: '',
                 body: '',
             },
-            // post: this.$store.state.post
         }
     },
     components: {},
+
     methods: {
+        onSubmit(event) {
+            event.preventDefault();
+            if (!this.input.id)
+                this.addPost();
+            else this.updatePost();
+
+        },
         addPost: function () {
             this.input.id = Math.floor(Math.random() * 10 + 1);
             this.$store.dispatch('addPost', this.input);
-
             this.input = {
                 userId: '',
                 id: '',
@@ -61,12 +70,14 @@ export default {
                 title: '',
                 body: '',
             }
-        }
+        },
+
     },
     computed: {
         post() {
             return this.$store.state.post;
-        }
+        },
+
     },
     watch: {
         post(newPost) {
@@ -124,5 +135,10 @@ textarea {
     width: 50%;
     margin: auto;
 
+}
+
+.error {
+    font-size: 13px;
+    color: red;
 }
 </style>

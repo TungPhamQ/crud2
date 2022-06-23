@@ -10,10 +10,7 @@ const state = {
 }
 
 //to handle state
-const getters = {
-    getPost(){
-    }
-}
+const getters = {}
 
 //to handle actions
 const actions = {
@@ -21,21 +18,15 @@ const actions = {
         axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
             .then(response => {commit('GET_POSTS', response.data)})
     },
-    // deletePost({commit}, post) {
-    //     commit('DELETE_POST', post)
-    // },
     
-    //  deletePost(id) {
-    //     axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)    
-    //         // eslint-disable-next-line
-    //         .then(response => this.posts = this.posts.filter(post => post.id !== id))
-    //         .catch(err => console.log(err))
-    // },
     deletePost({commit}, post) {
         axios.delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`,)
-        .then(response => console.log(response))
+        .then(response => {
+            console.log(response);
+            commit('DELETE_POST', post)   
+
+        })
         .catch(err => console.log(err))
-        commit('DELETE_POST', post)   
     },
     async addPost ({commit},input) {
        try {
@@ -44,7 +35,8 @@ const actions = {
          })
          console.log(res)
          commit('ADD_POST', input)
-       } catch(err) {
+       } 
+       catch(err) {
         console.log(err)
        }
     },
@@ -55,8 +47,11 @@ const actions = {
                 input
             }
         )
-        .then(response => console.log(response))
-        commit('EDIT_POST', post);
+        .then(response => {
+            console.log(response);
+            commit('EDIT_POST', post);
+        })
+        .catch(err => console.log(err))
     }
     
 }
@@ -75,13 +70,7 @@ const mutations = {
     },
     EDIT_POST (state, post) {
         state.post = post;
-        console.log(state.post);
     },
-    // UPDATE_POST (state, post){
-    //     state.post = post;
-    //     console.log(state.post);
-    // }
-    
 }
 
 //export store module

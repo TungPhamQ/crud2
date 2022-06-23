@@ -17,10 +17,6 @@ export default {
             header: [
 
                 {
-                    name: 'id',
-                    colspan: 1,
-                },
-                {
                     name: 'userId',
                     colspan: 1,
                 },
@@ -32,7 +28,10 @@ export default {
                     name: 'title',
                     colspan: 1,
                 },
-
+                {
+                    name: 'id',
+                    colspan: 1,
+                },
             ]
 
         }
