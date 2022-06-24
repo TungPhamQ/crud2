@@ -50,8 +50,11 @@ export default {
         deletePost: function (post) {
             this.$store.dispatch("deletePost", post);
         },
+        // editPost: function (post) {
+        //     this.$store.dispatch("editPost", post);
+        // },
         editPost: function (post) {
-            this.$store.dispatch("editPost", post);
+            this.$store.commit("EDIT_POST", post);
         },
     },
     components: { HeaderTable, ListTable, FunctionButton }
