@@ -65,6 +65,7 @@ export default {
         },
         updatePost: function () {
             this.$store.dispatch('editPost', this.input);
+
             this.input = {
                 userId: '',
                 id: '',

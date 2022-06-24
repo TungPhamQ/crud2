@@ -14,40 +14,40 @@ const getters = {}
 
 //to handle actions
 const actions = {
-    getPosts({ commit }) {
-        axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
-            .then(response => {commit('GET_POSTS', response.data)})
+    async getPosts({ commit }) {
+        try {
+            const res = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
+                commit('GET_POSTS', res.data)
+        }
+        catch(err){
+            console.error(err)
+        }
     },
     
-    deletePost({commit}, post) {
-        axios.delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`,)
-        .then(response => {
-            console.log(response);
-            commit('DELETE_POST', post)   
-
-        })
-        .catch(err => console.log(err))
+    async deletePost({commit}, post) {
+        try{ 
+            const res = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`)
+                console.log(res);
+                commit('DELETE_POST', post) 
+        }
+        catch(err) { 
+            console.log(err)
+        }
     },
     async addPost ({commit},input) {
-       try {
-        const res  = await axios.post('https://jsonplaceholder.typicode.com/posts/',{
-            input
-         })
-         console.log(res)
-         commit('ADD_POST', input)
-       } 
+       try { 
+        const res  = await axios.post('https://jsonplaceholder.typicode.com/posts/',{input})
+            console.log(res)
+            commit('ADD_POST', input)
+        } 
        catch(err) {
         console.log(err)
        }
     },
 
-    async editPost({commit}, post,input){
+    async editPost({commit}, post){
         try{
-        const res = await axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,
-            {
-                input
-            }
-        )
+        const res = await axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,{post})
             console.log(res);
             commit('EDIT_POST', post);
         }
